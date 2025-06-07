@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <style>
+    /* Reset and base */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #a19ea4, #85aef4);
+      color: #fff;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: auto;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 30px;
+      border-radius: 16px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    header h1 {
+      font-size: 1.8rem;
+      letter-spacing: 1px;
+      user-select: none;
+      text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    }
+
+    .logout-btn {
+      background: crimson;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 700;
+      transition: background 0.3s ease;
+      user-select: none;
+    }
+
+    .logout-btn:hover {
+      background: darkred;
+    }
+
+    form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    form input[type="text"] {
+      flex: 1 1 200px;
+      padding: 12px 16px;
+      border-radius: 10px;
+      border: none;
+      background: rgba(255, 255, 255, 0.2);
+      color: #fff;
+      font-size: 1rem;
+      box-shadow: inset 2px 2px 5px rgba(255,255,255,0.3), inset -2px -2px 5px rgba(0,0,0,0.2);
+      transition: background 0.3s ease;
+    }
+
+    form input[type="text"]::placeholder {
+      color: #ddd;
+    }
+
+    form input[type="text"]:focus {
+      outline: none;
+      background: rgba(255,255,255,0.35);
+      color: #000;
+      box-shadow: 0 0 8px 3px #6a11cb;
+    }
+
+    form button[type="submit"] {
+      background: linear-gradient(90deg, #ff758c 0%, #ff7eb3 100%);
+      border: none;
+      color: white;
+      font-weight: 700;
+      padding: 12px 24px;
+      border-radius: 14px;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(255,117,140,0.5);
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+      user-select: none;
+      flex-shrink: 0;
+      font-size: 1.1rem;
+    }
+
+    form button[type="submit"]:hover {
+      background: linear-gradient(90deg, #ff7eb3 0%, #ff758c 100%);
+      box-shadow: 0 6px 20px rgba(255,126,179,0.8);
+      transform: translateY(-2px);
+    }
+
+    #searchInput {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 12px;
+      border: 1px solid #aaa;
+      background: rgba(255, 255, 255, 0.2);
+      color: #fff;
+      font-size: 1rem;
+      margin-bottom: 15px;
+      box-shadow: inset 2px 2px 5px rgba(255,255,255,0.3), inset -2px -2px 5px rgba(0,0,0,0.2);
+      transition: background 0.3s ease;
+    }
+
+    #searchInput::placeholder {
+      color: #ddd;
+    }
+
+    #searchInput:focus {
+      outline: none;
+      background: rgba(255,255,255,0.35);
+      color: #000;
+      box-shadow: 0 0 8px 3px #6a11cb;
+    }
+
+    h2 {
+      margin: 25px 0 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      margin-bottom: 30px;
+    }
+
+    thead {
+      background: rgba(0, 0, 0, 0.3);
+    }
+
+    th, td {
+      padding: 14px 16px;
+      text-align: left;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      color: #fff;
+      font-size: 1rem;
+      user-select: none;
+    }
+
+    tbody tr:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    table button {
+      background: #dc3545;
+      color: white;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 700;
+      transition: background 0.3s ease;
+      user-select: none;
+    }
+
+    table button:hover {
+      background: #b02a37;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .container {
+        padding: 20px;
+      }
+
+      form {
+        flex-direction: column;
+      }
+
+      form button[type="submit"] {
+        width: 100%;
+      }
+
+      table, th, td {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>📘 Admin Dashboard</h1>
+      <button class="logout-btn" onclick="logout()">Logout</button>
+    </header>
+
+    <form id="bookForm">
+      <input type="text" id="bookTitle" placeholder="Book Title" required>
+      <input type="text" id="bookAuthor" placeholder="Book Author" required>
+      <input type="text" id="bookGenre" placeholder="Book Genre" required>
+      <button type="submit">Add Book</button>
+    </form>
+
+    <input type="text" id="searchInput" placeholder="Search books..." />
+
+    <h2>📚 Book List</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Title</th>
+          <th>Author</th>
+          <th>Genre</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="bookList">
+        <!-- Books appear here -->
+      </tbody>
+    </table>
+
+    <!-- 📖 Issued Books Table -->
+    <h2>📖 Issued Books</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Student Name</th>
+          <th>Phone Number</th>
+          <th>Book Name</th>
+          <th>Issue Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Ravi Sharma</td>
+          <td>9876543210</td>
+          <td>Mathematics - Grade 12</td>
+          <td>2024-12-10</td>
+        </tr>
+        <tr>
+          <td>Meera Yadav</td>
+          <td>9123456789</td>
+          <td>Physics Fundamentals</td>
+          <td>2025-01-05</td>
+        </tr>
+        <tr>
+          <td>Ali Khan</td>
+          <td>9988776655</td>
+          <td>Indian History</td>
+          <td>2025-02-20</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    function logout() {
+      alert("Logging out...");
+      window.location.href = "login.html";
+    }
+  </script>
+
+  <script src="admin.js"></script>
+</body>
+</html>
